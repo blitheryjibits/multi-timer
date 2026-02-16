@@ -1,9 +1,10 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
   text-align: center;
   box-sizing: border-box;
+  background: #f7fcfba5;
 }
 
 .app-container {
@@ -13,38 +14,35 @@
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background: linear-gradient(45deg, #000000, #292828 );
-
 }
 
 .timer-container {
   display: flex;
   flex-direction: row;
-  gap: 1.4rem;
-  padding:1rem;
+  justify-content: center;
+  width: clamp(600px, 70%, 1000px);
+  gap: 2rem;
+  padding: 1rem;
 }
+
 .timer-card {
-  padding: 1.2em;
-  background: linear-gradient(45deg, rgba(13, 13, 13, 0.15), rgba(133, 132, 132, 0.326), rgba(13, 13, 13, 0.15));
-  backdrop-filter: blur(12px); 
-  -webkit-backdrop-filter: blur(20px); 
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: .75rem;
+  background: #7d88c3;
   border-radius: 16px; 
   border: 1px solid rgba(255, 255, 255, 0.25); 
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  width: clamp(200px, 20%, 350px);
+  width: clamp(200px, 10rem, 300px);
   cursor: default;
 }
-.timer-card-header {
-  font: 1.4rem 'Roboto Mono', monospace;
-  padding: 1.4rem;
-}
 
-.timer {
-  background-color: #21215b;
+.timer-card-header {
+  font: 1.7rem 'Roboto Mono', monospace;
   padding: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .time {
@@ -53,67 +51,78 @@
 }
 
 .timer-card.active { 
-box-shadow: 0 0 5px 5px rgba(255, 237, 220, 0.3);
+box-shadow: inset 0 0 14px #06304f;
 transition:box-shadow 300ms ease-in-out;
 
 }
 
-.timer-card.passed {
-  background: linear-gradient(
-      135deg,
-      rgba(255, 0, 150, 0.15),
-      rgba(255, 179, 107, 0.15)
-    );
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+.timer-card::before { 
+  content: ""; 
+  position: absolute; 
+  inset: 0; 
+  border-radius: 16px; 
+  background: #191149; 
+  background-size: 200% 200%; 
+  opacity: 0;
+  transition: opacity 1000ms ease-in; 
+  pointer-events: none;
+  z-index: -1; }
 
-  border: 1px solid rgba(255, 255, 255, 0.35);
-
-  /* Optional subtle pearlescent shimmer */
-  background-size: 200% 200%;
-  animation: pearlescentShift 8s ease infinite;
-}
-
-@keyframes pearlescentShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
+ /* When .passed is added, fade the layer in */ 
+ .timer-card.passed::before { opacity: .2; }
 
 .button-container {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
-  padding: 1rem;
+  justify-content: center;
+  width: clamp(500px, 60%, 700px);
+  gap: 1.4rem;
+  padding: 1.2rem;
 }
 
-.button {
-  padding: 0.75rem 1.5rem;
+.button-container .button {
+  padding: .9rem 1.8rem;
   border-radius: 10px;
   border: none;
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 1.5rem;
+  font-weight: bold;
   cursor: pointer;
-
-  background: linear-gradient(145deg, #4f4f4f, #3d3d3d);
+  background: #4462ad;
   color: #e6e6e6;
-  box-shadow: -1px -1px 3px rgba(177, 176, 176, 0.6);
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
-.button:hover {
-  box-shadow: 2px 2px 4px rgba(0,0,0,0.14),
-              -2px -2px 4px rgba(193, 191, 191, 0.5);
+.button-container .button:last-child {
+  margin-left: auto;
 }
 
-.button:active {
-  transform: translateY(0);
-  box-shadow: inset -2px -2px 5px rgba(82, 82, 82, 0.4);
+.button:hover:not(:active) {
+  box-shadow: inset 0 0 8px #191149;
+}
+
+.button:active, button:focus {
+  border:none;
+  outline:none;
+}
+
+
+@media (max-width: 600px) {
+  .timer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button-container {
+    flex-direction: row;
+    width: 50%;
+    padding: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .button-container .button:last-child {
+  margin-left: 0;
+}
+  
 }

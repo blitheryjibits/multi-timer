@@ -1,18 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react'
 
 type Timer = {
     duration: number
     isActive: boolean
     onComplete: () => void
     title?: string | null
+    isSelected?: boolean
 }
 
-export const Timer: React.FC<Timer> = ({ duration, isActive, onComplete, title }) => {
+export const Timer = forwardRef<{ reset: () => void }, Timer> (({ duration, isActive, onComplete, title, isSelected }, ref) => {
     const [timePassed, setTimePassed] = useState(0)
-    // const [timeString, setTimeString] = useState('00:00');
     const intervalRef = useRef<number | null>(null)
     const completedRef = useRef(false)
     
+    useImperativeHandle(ref, () => ({
+        reset: () => {
+            setTimePassed(0)
+            completedRef.current = false
+        }
+    }))
 
     useEffect(() => {
         // if paused or not active, clear any running interval
@@ -64,7 +70,7 @@ const formatTime = (t: number) => {
 
 
     return (
-        <div className={`timer-card ${isActive ? "active" : "" } ${duration-60 < timePassed ? "passed" : ""}`}>
+        <div className={`timer-card ${isSelected ? "active" : "" } ${duration-60 < timePassed ? "passed" : ""}`}>
             {title && <div className="timer-card-header">{title}</div>}
             <div className="timer-card-body">
                 <div className="time">
@@ -73,4 +79,4 @@ const formatTime = (t: number) => {
             </div>
         </div>
     )
-}
+})

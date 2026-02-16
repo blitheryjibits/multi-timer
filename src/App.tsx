@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import './App.css'
 import { TimerContainer } from './components/TimerContainer'
 
 function App() {
+  const timerContainerRef = useRef<{ resetAll: () => void }>(null)
   const [currentTimer, setCurrentTimer] = useState(0)
   const [isRunning, setIsRunning] = useState(false)
   const timers = [
@@ -33,10 +34,17 @@ function App() {
       if (currentTimer < timers.length) nextTimer()
   }
 
+  const reset = () => {
+    timerContainerRef.current?.resetAll()
+    setCurrentTimer(0);
+    setIsRunning(false);
+  }
+
   return (
     <>
       <div className="app-container">
           <TimerContainer 
+            ref={timerContainerRef}
             timers={timers} 
             isRunning={isRunning} 
             onComplete={onComplete}
@@ -44,10 +52,11 @@ function App() {
             />
 
         <div className="button-container">
-          <button type="button" className="button" onClick={startTimer}>Start</button>
-          <button type="button" className="button" onClick={pauseTimer}>Pause</button>
-          <button type="button" className="button" onClick={nextTimer}>Next</button>
-          <button type="button" className="button" onClick={prevTimer}>Prev</button>
+          <button type="button" className="button str" onClick={startTimer}>▶</button>
+          <button type="button" className="button stp" onClick={pauseTimer}>◼</button>
+          <button type="button" className="button prv" onClick={prevTimer}>&lt;&lt;</button>
+          <button type="button" className="button nxt" onClick={nextTimer}>&gt;&gt;</button>
+          <button type="button" className="button rst" onClick={reset}>↻</button>
         </div>
       </div>
 
