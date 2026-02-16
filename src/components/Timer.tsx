@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react'
+import { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react'
 
 type Timer = {
     duration: number
