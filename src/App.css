@@ -4,7 +4,7 @@
   padding: 0;
   text-align: center;
   box-sizing: border-box;
-  background: #f7fcfba5;
+  background: #110022;
 }
 
 .app-container {
@@ -12,8 +12,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
+  background: 
+    radial-gradient(ellipse at 31% 51%, #3d1146 0, #0000 65%), 
+    radial-gradient(ellipse at 35% 42%, #3d1146 0, #0000 65%), 
+    radial-gradient(ellipse at 75% 20%, #81009b6a 0, #0000 45%), 
+    radial-gradient(ellipse at 50% 85%, #12344a 0, #0000 45%), 
+    radial-gradient(ellipse at 30% 115%, #015649b6  0, #0000 40%);
 }
 
 .timer-container {
@@ -32,12 +38,16 @@
   flex-direction: column;
   align-items: center;
   padding: .75rem;
-  background: #7d88c3;
+  background: #8661bd;
   border-radius: 16px; 
   border: 1px solid rgba(255, 255, 255, 0.25); 
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   width: clamp(200px, 10rem, 300px);
   cursor: default;
+}
+
+.timer-card > * { 
+  position: relative; z-index: 1; /* ensures content stays above before background */ 
 }
 
 .timer-card-header {
@@ -51,7 +61,7 @@
 }
 
 .timer-card.active { 
-box-shadow: inset 0 0 14px #06304f;
+box-shadow: inset 0 1px 14px #3d1146;
 transition:box-shadow 300ms ease-in-out;
 
 }
@@ -61,15 +71,15 @@ transition:box-shadow 300ms ease-in-out;
   position: absolute; 
   inset: 0; 
   border-radius: 16px; 
-  background: #191149; 
-  background-size: 200% 200%; 
+  background: #1f052f; 
+  background-size: 100%; 
   opacity: 0;
   transition: opacity 1000ms ease-in; 
   pointer-events: none;
-  z-index: -1; }
+  z-index: 0; }
 
  /* When .passed is added, fade the layer in */ 
- .timer-card.passed::before { opacity: .2; }
+ .timer-card.passed::before { opacity: .3; }
 
 .button-container {
   display: flex;
@@ -81,6 +91,8 @@ transition:box-shadow 300ms ease-in-out;
 }
 
 .button-container .button {
+  display: flex;
+  justify-content: center;
   padding: .9rem 1.8rem;
   border-radius: 10px;
   border: none;
@@ -108,6 +120,10 @@ transition:box-shadow 300ms ease-in-out;
 
 @media (max-width: 600px) {
   .timer-container {
+    width: 100vw;
+    height: fit-content;
+    scrollbar-width: 0;
+    
     flex-direction: column;
     align-items: center;
   }
@@ -119,6 +135,12 @@ transition:box-shadow 300ms ease-in-out;
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
+    padding: 0 0 1rem 0 ;
+  }
+
+  .button-container .button {
+    max-width: 79px;
+    padding: .9rem 1.2rem;
   }
 
   .button-container .button:last-child {
