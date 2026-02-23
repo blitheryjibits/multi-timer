@@ -8,9 +8,9 @@ function App() {
   const [currentTimer, setCurrentTimer] = useState(0)
   const [isRunning, setIsRunning] = useState(false)
   const timers = [
-    {id:0, title:"Presentation", duration: 63},
-    {id:1, title:"Discussion", duration: 70},
-    {id:2, title:"Conversation", duration: 70}
+    {id:0, title:"Presentation", duration: 240},
+    {id:1, title:"Discussion", duration: 300},
+    {id:2, title:"Conversation", duration: 360}
   ]
 
   const startTimer = () => {
