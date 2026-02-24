@@ -1,5 +1,6 @@
 #root {
   max-width: 100vw;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   text-align: center;
@@ -9,9 +10,10 @@
 
 .app-container {
   display: flex;
+  flex: 1;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   min-height: 100vh;
   width: 100vw;
   background: 
@@ -26,9 +28,10 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: -3rem;
   width: clamp(600px, 70%, 1000px);
   gap: 2rem;
-  padding: 1rem;
+  padding: .8rem;
 }
 
 .timer-card {
@@ -60,12 +63,6 @@
   font-size: 2rem;
 }
 
-.timer-card.active { 
-box-shadow: inset 0 1px 14px #3d1146;
-transition:box-shadow 300ms ease-in-out;
-
-}
-
 .timer-card::before { 
   content: ""; 
   position: absolute; 
@@ -81,7 +78,20 @@ transition:box-shadow 300ms ease-in-out;
  /* When .passed is added, fade the layer in */ 
  .timer-card.passed::before { opacity: .3; }
 
-.button-container {
+ .timer-card::after { 
+    content: ""; 
+    position: absolute; 
+    inset: 0; 
+    pointer-events: none; 
+    /* Start with no shadow visible */ 
+    box-shadow: inset 0 2px 14px #3d1146; 
+    opacity: 0; 
+    transition: opacity 300ms ease-in-out; 
+  } 
+ 
+.timer-card.active::after { opacity: 1; }
+
+ .button-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -119,11 +129,11 @@ transition:box-shadow 300ms ease-in-out;
 
 
 @media (max-width: 600px) {
+
+
   .timer-container {
     width: 100vw;
     height: fit-content;
-    scrollbar-width: 0;
-    
     flex-direction: column;
     align-items: center;
   }
@@ -146,5 +156,55 @@ transition:box-shadow 300ms ease-in-out;
   .button-container .button:last-child {
   margin-left: 0;
 }
+
+.app-container .footer{
+  position: static;
+  margin-top: auto;
+  font-size:.8rem;
+}
+
+.footer-container {
+  flex-direction: column;
   
 }
+
+h4 {
+  font-size: 1rem !important;
+}
+
+  
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;  
+  color: #e6e6e6;
+  margin-top: 2rem;
+} 
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  flex:1;
+  cursor: pointer;
+}
+
+h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: .1rem;
+}
+
+
+

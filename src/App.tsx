@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 
 import './App.css'
 import { TimerContainer } from './components/TimerContainer'
+import Footer from './components/Footer'
 
 function App() {
   const timerContainerRef = useRef<{ resetAll: () => void }>(null)
@@ -31,7 +32,10 @@ function App() {
 
   const onComplete = () => {
     pauseTimer()
-      if (currentTimer < timers.length) nextTimer()
+      if (currentTimer < timers.length - 1) {
+        nextTimer()
+        startTimer()
+      }
   }
 
   const reset = () => {
@@ -58,8 +62,9 @@ function App() {
           <button type="button" className="button nxt" onClick={nextTimer}>&gt;&gt;</button>
           <button type="button" className="button rst" onClick={reset}>↻</button>
         </div>
-      </div>
 
+      <Footer />
+      </div>
     </>
   )
 }
